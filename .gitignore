@@ -1,2 +1,72 @@
-docs/
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.pyc
+.Python
+build/
+develop-eggs/
+dist/
+downloads/
+eggs/
+.eggs/
+lib/
+lib64/
+parts/
+sdist/
+var/
+wheels/
+*.egg-info/
+.installed.cfg
+*.egg
+
+# Jupyter Notebook
+.ipynb_checkpoints
+
+# Environment variables
+.env
+.venv
+env/
+venv/
+ENV/
+env.bak/
+venv.bak/
+
+# IDE files
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# OS generated files
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
+
+# Model files (optional - you can choose to include or exclude)
+# Uncomment the next line if you don't want to track model files in git
+*.pth
+*.pt
+
+# Large datasets (recommend excluding from git)
 datasets/
+# Output files (keep structure but ignore generated content)
+outputs/predictions/*
+outputs/visualizations/*
+outputs/logs/*
+!outputs/predictions/.gitkeep
+!outputs/visualizations/.gitkeep
+!outputs/logs/.gitkeep
+
+# Temporary files
+*.tmp
+*.temp
+*.log
+
+# Submission files (exclude from git)
+docs/
+models/best_model.pth
