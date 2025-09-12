@@ -9,9 +9,9 @@ import os
 from tqdm import tqdm
 import albumentations as A
 from albumentations.pytorch import ToTensorV2
-from hackathon.src.model import SegmentationModel
-from hackathon.src.utils import reconstruct_wsi_mask, save_prediction_mask, visualize_predictions
-from hackathon.src.data_loader import load_image, load_mask, is_tissue_patch
+from src.model import SegmentationModel
+from src.utils import reconstruct_wsi_mask, save_prediction_mask, visualize_predictions
+from src.data_loader import load_image, load_mask, is_tissue_patch
 
 def predict_wsi(model, wsi_path, patch_size=256, stride=128, device='cuda', min_tissue_ratio=0.1):
     """
