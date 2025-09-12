@@ -1,0 +1,10 @@
+# Prostate WSI Segmentation Models
+
+## best_model.pth
+- Architecture: U-Net++ with ResNet34 encoder
+- Training IoU: 70.32%
+- Validation IoU: 65.18%
+- Classes: Background(0), Stroma(1), Benign(2), Tumor(3)
+- Patch size: 256x256
+- Trained epochs: 50
+- Loss: Combined Dice + Cross-Entropy
