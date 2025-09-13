@@ -46,6 +46,7 @@ venv.bak/
 .Trashes
 ehthumbs.db
 Thumbs.db
+*.part
 
 # Model files (optional - you can choose to include or exclude)
 # Uncomment the next line if you don't want to track model files in git
