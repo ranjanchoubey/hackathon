@@ -38,7 +38,7 @@ class WSIPatchDataset(Dataset):
     
     def _extract_all_patches(self):
         """Extract patches from all WSI files"""
-        print("🔄 Extracting patches from all WSIs...")
+        print(" Extracting patches from all WSIs...")
         
         for idx, (img_path, mask_path) in enumerate(tqdm(self.wsi_paths)):
             wsi_img = load_image(img_path)
@@ -59,7 +59,7 @@ class WSIPatchDataset(Dataset):
                         'wsi_shape': wsi_img.shape[:2]
                     })
         
-        print(f"✅ Total patches extracted: {len(self.patches_img)}")
+        print(f" Total patches extracted: {len(self.patches_img)}")
     
     def __len__(self):
         return len(self.patches_img)

@@ -28,12 +28,12 @@ def main():
     val_masks = [img.replace('.png', '_mask.png') for img in val_images]
     val_paths = list(zip(val_images, val_masks))
     
-    print(f"📊 Training WSIs: {len(train_paths)}")
-    print(f"📊 Validation WSIs: {len(val_paths)}")
+    print(f" Training WSIs: {len(train_paths)}")
+    print(f" Validation WSIs: {len(val_paths)}")
     
     # Start training
     history, best_iou = train_model(train_paths, val_paths, config)
-    print(f"🏆 Training completed! Best IoU: {best_iou:.4f}")
+    print(f" Training completed! Best IoU: {best_iou:.4f}")
 
 if __name__ == "__main__":
     main()

@@ -23,7 +23,7 @@ def predict_wsi(model, wsi_path, patch_size=256, stride=128, device='cuda', min_
     if wsi_image is None:
         raise ValueError(f"Could not load image: {wsi_path}")
     
-    print(f"🔍 Processing WSI: {os.path.basename(wsi_path)}")
+    print(f" Processing WSI: {os.path.basename(wsi_path)}")
     print(f"WSI dimensions: {wsi_image.shape}")
     
     model.eval()
@@ -34,10 +34,10 @@ def predict_wsi(model, wsi_path, patch_size=256, stride=128, device='cuda', min_
     )
     
     if len(patches_img) == 0:
-        print("⚠️ No tissue patches found!")
+        print(" No tissue patches found!")
         return np.zeros(wsi_image.shape[:2], dtype=np.uint8)
     
-    print(f"📊 Extracted {len(patches_img)} tissue patches")
+    print(f" Extracted {len(patches_img)} tissue patches")
     
     # Process patches in batches
     batch_size = 16
@@ -50,7 +50,7 @@ def predict_wsi(model, wsi_path, patch_size=256, stride=128, device='cuda', min_
     ])
     
     with torch.no_grad():
-        for i in tqdm(range(0, len(patches_img), batch_size), desc="🔮 Predicting patches"):
+        for i in tqdm(range(0, len(patches_img), batch_size), desc=" Predicting patches"):
             batch_patches = patches_img[i:i+batch_size]
             
             # Apply transforms
@@ -68,12 +68,12 @@ def predict_wsi(model, wsi_path, patch_size=256, stride=128, device='cuda', min_
             all_predictions.extend(predictions.cpu().numpy())
     
     # Reconstruct full WSI - this creates the final prediction mask
-    print("🧩 Reconstructing full WSI...")
+    print(" Reconstructing full WSI...")
     full_prediction = reconstruct_wsi_mask(
         all_predictions, coords, wsi_image.shape[:2], patch_size, stride
     )
     
-    print(f"✅ Prediction complete! Shape: {full_prediction.shape}")
+    print(f" Prediction complete! Shape: {full_prediction.shape}")
     print(f"Unique values: {np.unique(full_prediction)} (0=Background, 1=Stroma, 2=Benign, 3=Tumor)")
     
     return full_prediction
@@ -103,7 +103,7 @@ def generate_validation_predictions(model_path, validation_dir, output_dir, devi
     import glob
     
     # Load trained model - FIX: Add weights_only=False for compatibility
-    print(f"📥 Loading model from: {model_path}")
+    print(f" Loading model from: {model_path}")
     model = SegmentationModel(num_classes=4, encoder_name="resnet34", pretrained=False)
     
     # Fix for PyTorch version compatibility
@@ -111,21 +111,21 @@ def generate_validation_predictions(model_path, validation_dir, output_dir, devi
     model.load_state_dict(checkpoint['model_state_dict'])
     model = model.to(device)
     
-    print(f"✅ Model loaded! Best WSI IoU: {checkpoint['best_wsi_iou']:.4f}")
+    print(f" Model loaded! Best WSI IoU: {checkpoint['best_wsi_iou']:.4f}")
     
     # Get validation paths
     val_images = sorted(glob.glob(os.path.join(validation_dir, "*.png")))
     val_images = [img for img in val_images if not img.endswith('_mask.png')]
     val_masks = [img.replace('.png', '_mask.png') for img in val_images]
     
-    print(f"📊 Found {len(val_images)} validation WSIs")
+    print(f" Found {len(val_images)} validation WSIs")
     
     # Create output directory
     os.makedirs(output_dir, exist_ok=True)
     
     # Generate predictions
     results = []
-    for i, (img_path, mask_path) in enumerate(tqdm(zip(val_images, val_masks), desc="🎯 Generating predictions")):
+    for i, (img_path, mask_path) in enumerate(tqdm(zip(val_images, val_masks), desc=" Generating predictions")):
         # Get image name
         img_name = os.path.basename(img_path).replace('.png', '')
         
@@ -144,7 +144,7 @@ def generate_validation_predictions(model_path, validation_dir, output_dir, devi
                 iou_scores = calculate_iou_per_class(prediction, true_mask)
                 mean_iou = np.mean(iou_scores)
                 
-                print(f"📊 {img_name} IoU: {mean_iou:.4f}")
+                print(f" {img_name} IoU: {mean_iou:.4f}")
                 print(f"   Per-class IoU: Background={iou_scores[0]:.3f}, Stroma={iou_scores[1]:.3f}, Benign={iou_scores[2]:.3f}, Tumor={iou_scores[3]:.3f}")
                 
                 results.append({
@@ -173,7 +173,7 @@ def generate_test_predictions(model_path, test_dir, output_dir, device='cuda'):
     import glob
     
     # Load trained model - FIX: Add weights_only=False for compatibility
-    print(f"📥 Loading model from: {model_path}")
+    print(f" Loading model from: {model_path}")
     model = SegmentationModel(num_classes=4, encoder_name="resnet34", pretrained=False)
     
     # Fix for PyTorch version compatibility
@@ -181,18 +181,18 @@ def generate_test_predictions(model_path, test_dir, output_dir, device='cuda'):
     model.load_state_dict(checkpoint['model_state_dict'])
     model = model.to(device)
     
-    print(f"✅ Model loaded! Best WSI IoU: {checkpoint['best_wsi_iou']:.4f}")
+    print(f" Model loaded! Best WSI IoU: {checkpoint['best_wsi_iou']:.4f}")
     
     # Get test image paths
     test_images = sorted(glob.glob(os.path.join(test_dir, "*.png")))
-    print(f"📊 Found {len(test_images)} test WSIs")
+    print(f" Found {len(test_images)} test WSIs")
     
     # Create output directory
     os.makedirs(output_dir, exist_ok=True)
     
     # Generate predictions
     results = []
-    for img_path in tqdm(test_images, desc="🎯 Generating test predictions"):
+    for img_path in tqdm(test_images, desc=" Generating test predictions"):
         # Get image name
         img_name = os.path.basename(img_path).replace('.png', '')
         
@@ -222,9 +222,9 @@ if __name__ == "__main__":
     output_dir = "predictions/validation"
     
     # Generate validation predictions
-    print("🚀 Generating validation predictions...")
+    print(" Generating validation predictions...")
     results = generate_validation_predictions(model_path, validation_dir, output_dir, device)
     
-    print(f"\n🎉 Generated {len(results)} validation predictions!")
-    print("📁 Saved in: predictions/validation/")
-    print("🎯 Ready for blind test WSIs when provided!")
+    print(f"\n Generated {len(results)} validation predictions!")
+    print(" Saved in: predictions/validation/")
+    print(" Ready for blind test WSIs when provided!")

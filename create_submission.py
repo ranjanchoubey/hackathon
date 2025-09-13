@@ -20,8 +20,8 @@ def create_final_submission_package(submission_dir, your_name):
     # Copy all submission masks
     submission_files = [f for f in os.listdir(submission_dir) if f.endswith('_prediction.png')]
 
-    print(f"📦 Creating final submission package...")
-    print(f"📁 Submission directory: {final_submission_dir}")
+    print(f" Creating final submission package...")
+    print(f" Submission directory: {final_submission_dir}")
 
     for file in submission_files:
         src = os.path.join(submission_dir, file)
@@ -33,7 +33,7 @@ def create_final_submission_package(submission_dir, your_name):
         unique_vals = np.unique(pred_mask)
         file_size = os.path.getsize(dst) / (1024*1024)  # MB
 
-        print(f"  ✅ {file} ({file_size:.1f}MB) - Values: {unique_vals}")
+        print(f"   {file} ({file_size:.1f}MB) - Values: {unique_vals}")
 
     # Create submission info file
     info_content = f"""# Prostate WSI Segmentation - Blind Test Predictions
@@ -68,11 +68,11 @@ Model Performance: 70.32% WSI-level IoU (training), 65.18% WSI-level IoU (valida
     zip_filename = f"./submission_{your_name}_{timestamp}.zip"
     shutil.make_archive(zip_filename.replace('.zip', ''), 'zip', final_submission_dir)
 
-    print(f"\n🎯 FINAL SUBMISSION READY!")
-    print(f"📁 Folder: {final_submission_dir}")
-    print(f"📦 Zip file: {zip_filename}")
-    print(f"📊 Total prediction files: {len(submission_files)}")
-    print(f"\n✅ Ready to upload!")
+    print(f"\n FINAL SUBMISSION READY!")
+    print(f" Folder: {final_submission_dir}")
+    print(f" Zip file: {zip_filename}")
+    print(f" Total prediction files: {len(submission_files)}")
+    print(f"\n Ready to upload!")
 
     return final_submission_dir, zip_filename
 
@@ -83,13 +83,13 @@ if __name__ == "__main__":
 
     # Check if predictions exist
     if not os.path.exists(submission_dir):
-        print(f"❌ Error: Predictions directory not found: {submission_dir}")
+        print(f" Error: Predictions directory not found: {submission_dir}")
         print("Please run inference first!")
         exit(1)
     
     pred_files = [f for f in os.listdir(submission_dir) if f.endswith('_prediction.png')]
     if not pred_files:
-        print(f"❌ Error: No prediction files found in {submission_dir}")
+        print(f" Error: No prediction files found in {submission_dir}")
         print("Please run inference first!")
         exit(1)
 

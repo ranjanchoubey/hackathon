@@ -59,7 +59,7 @@ def evaluate_wsi_level(model, val_dataset, device, num_classes=4):
             wsi_groups[wsi_idx] = []
         wsi_groups[wsi_idx].append(i)
     
-    print(f"🔍 Evaluating {len(wsi_groups)} WSIs at WSI-level...")
+    print(f" Evaluating {len(wsi_groups)} WSIs at WSI-level...")
     
     wsi_ious = []
     inference_transform = A.Compose([
@@ -185,7 +185,7 @@ def train_model(train_paths, val_paths, config):
     Main training function following prompt requirements
     """
     # Create datasets
-    print("🔄 Creating datasets...")
+    print(" Creating datasets...")
     train_transform = get_transforms(is_training=True)
     val_transform = get_transforms(is_training=False)
     
@@ -200,8 +200,8 @@ def train_model(train_paths, val_paths, config):
     val_loader = DataLoader(val_dataset, batch_size=config.batch_size, 
                            shuffle=False, num_workers=2)
     
-    print(f"📊 Training patches: {len(train_dataset)}")
-    print(f"📊 Validation patches: {len(val_dataset)}")
+    print(f" Training patches: {len(train_dataset)}")
+    print(f" Validation patches: {len(val_dataset)}")
     
     # Initialize model
     model = SegmentationModel(num_classes=config.num_classes, 
@@ -222,10 +222,10 @@ def train_model(train_paths, val_paths, config):
     patience_counter = 0
     history = {'train_loss': [], 'val_loss': [], 'train_iou': [], 'val_iou': [], 'wsi_iou': []}
     
-    print(f"🚀 Starting training for {config.epochs} epochs...")
+    print(f" Starting training for {config.epochs} epochs...")
     
     for epoch in range(config.epochs):
-        print(f"\n🏃‍♂️ Epoch {epoch+1}/{config.epochs}")
+        print(f"\n Epoch {epoch+1}/{config.epochs}")
         print("=" * 60)
         
         # Train
@@ -236,7 +236,7 @@ def train_model(train_paths, val_paths, config):
         
         # WSI-level evaluation every 5 epochs or last epoch
         if (epoch + 1) % 5 == 0 or epoch == config.epochs - 1:
-            print("🔍 Performing WSI-level validation...")
+            print(" Performing WSI-level validation...")
             wsi_mean_iou, _ = evaluate_wsi_level(model, val_dataset, config.device)
             history['wsi_iou'].append(wsi_mean_iou)
             
@@ -255,7 +255,7 @@ def train_model(train_paths, val_paths, config):
                     'val_loss': val_loss
                 }, os.path.join(config.model_save_path, 'best_model.pth'))
                 
-                print(f"💾 New best WSI IoU: {best_wsi_iou:.4f} - Model saved!")
+                print(f" New best WSI IoU: {best_wsi_iou:.4f} - Model saved!")
             else:
                 patience_counter += 1
         else:
@@ -272,7 +272,7 @@ def train_model(train_paths, val_paths, config):
         scheduler.step(wsi_mean_iou)
         
         # Print epoch summary
-        print(f"\n📈 Epoch {epoch+1} Summary:")
+        print(f"\n Epoch {epoch+1} Summary:")
         print(f"Train Loss: {train_loss:.4f} | Val Loss: {val_loss:.4f}")
         print(f"Train IoU: {train_iou:.4f} | Val IoU: {val_iou:.4f}")
         print(f"WSI IoU: {wsi_mean_iou:.4f}")
@@ -280,11 +280,11 @@ def train_model(train_paths, val_paths, config):
         
         # Early stopping
         if patience_counter >= config.patience:
-            print(f"🛑 Early stopping triggered after {config.patience} epochs without improvement")
+            print(f" Early stopping triggered after {config.patience} epochs without improvement")
             break
     
-    print(f"\n🎉 TRAINING COMPLETED!")
-    print(f"🏆 Best WSI-level IoU: {best_wsi_iou:.4f}")
+    print(f"\n TRAINING COMPLETED!")
+    print(f" Best WSI-level IoU: {best_wsi_iou:.4f}")
     
     return history, best_wsi_iou
 
@@ -306,8 +306,8 @@ if __name__ == "__main__":
     val_masks = [img.replace('.png', '_mask.png') for img in val_images]
     val_paths = list(zip(val_images, val_masks))
     
-    print(f"📊 Training WSIs: {len(train_paths)}")
-    print(f"📊 Validation WSIs: {len(val_paths)}")
+    print(f" Training WSIs: {len(train_paths)}")
+    print(f" Validation WSIs: {len(val_paths)}")
     
     # Training configuration
     config = TrainingConfig()
@@ -315,4 +315,4 @@ if __name__ == "__main__":
     # Start training
     history, best_iou = train_model(train_paths, val_paths, config)
     
-    print(f"✅ Training completed! Best IoU: {best_iou:.4f}")
+    print(f" Training completed! Best IoU: {best_iou:.4f}")

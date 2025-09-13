@@ -81,7 +81,7 @@ def save_prediction_mask(prediction_mask, save_path):
     """
     prediction_mask = prediction_mask.astype(np.uint8)
     cv2.imwrite(save_path, prediction_mask)
-    print(f"✅ Prediction saved: {save_path}")
+    print(f" Prediction saved: {save_path}")
     print(f"Unique values: {np.unique(prediction_mask)}")
 
 def visualize_predictions(image, true_mask, pred_mask, save_path=None):
@@ -119,7 +119,7 @@ def print_class_distribution(mask, title="Mask"):
     unique, counts = np.unique(mask, return_counts=True)
     total_pixels = mask.shape[0] * mask.shape[1]
     
-    print(f"\n📊 {title} Class Distribution:")
+    print(f"\n {title} Class Distribution:")
     for class_id, count in zip(unique, counts):
         percentage = (count / total_pixels) * 100
         class_name = CLASSES.get(class_id, f"Unknown({class_id})")

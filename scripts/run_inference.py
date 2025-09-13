@@ -50,7 +50,7 @@ def create_organized_visualizations(predictions_dir, test_dir, viz_base_dir):
     colors = create_color_map()
     pred_files = [f for f in os.listdir(predictions_dir) if f.endswith('_prediction.png')]
     
-    print(f"🎨 Creating organized visualizations for {len(pred_files)} predictions...")
+    print(f" Creating organized visualizations for {len(pred_files)} predictions...")
     
     for pred_file in pred_files:
         base_name = pred_file.replace('_prediction.png', '')
@@ -100,7 +100,7 @@ def create_organized_visualizations(predictions_dir, test_dir, viz_base_dir):
     # 5. Summary grid - save directly to summaries folder
     create_summary_visualization(pred_files, predictions_dir, viz_base_dir, colors)
     
-    print(f"✅ All visualizations organized in: {viz_base_dir}")
+    print(f" All visualizations organized in: {viz_base_dir}")
 
 def create_class_statistics_plot(prediction_mask, save_path):
     """Create bar plot of class distribution"""
@@ -200,17 +200,17 @@ def main():
     
     model_path = args.model or str(config.BEST_MODEL_PATH)
     
-    print(f"🔧 Device: {device}")
-    print(f"📥 Input: {args.input}")
-    print(f"📤 Output: {args.output}")
-    print(f"🧠 Model: {model_path}")
+    print(f" Device: {device}")
+    print(f" Input: {args.input}")
+    print(f" Output: {args.output}")
+    print(f" Model: {model_path}")
     
     # Create output directories
     predictions_dir = os.path.join(args.output, 'predictions')
     visualizations_dir = os.path.join(args.output, 'visualizations')
     
     # Run inference
-    print("\n🚀 Step 1: Generating predictions...")
+    print("\n Step 1: Generating predictions...")
     results = generate_test_predictions(
         model_path=model_path,
         test_dir=args.input,
@@ -218,21 +218,21 @@ def main():
         device=device
     )
     
-    print(f"✅ Generated {len(results)} predictions!")
+    print(f" Generated {len(results)} predictions!")
     
     # Create organized visualizations
-    print("\n🎨 Step 2: Creating organized visualizations...")
+    print("\n Step 2: Creating organized visualizations...")
     create_organized_visualizations(predictions_dir, args.input, visualizations_dir)
     
-    print(f"\n🎯 Complete! Output structure:")
-    print(f"📁 {args.output}/")
-    print(f"  📁 predictions/ - Raw prediction masks")
-    print(f"  📁 visualizations/")
-    print(f"    📁 colored_masks/ - Colored segmentation masks")
-    print(f"    📁 overlays/ - Overlays on original images")
-    print(f"    📁 comparisons/ - Side-by-side comparisons")
-    print(f"    📁 statistics/ - Class distribution charts")
-    print(f"    📁 summaries/ - Summary grid visualization")
+    print(f"\n Complete! Output structure:")
+    print(f" {args.output}/")
+    print(f"   predictions/ - Raw prediction masks")
+    print(f"   visualizations/")
+    print(f"     colored_masks/ - Colored segmentation masks")
+    print(f"     overlays/ - Overlays on original images")
+    print(f"     comparisons/ - Side-by-side comparisons")
+    print(f"     statistics/ - Class distribution charts")
+    print(f"     summaries/ - Summary grid visualization")
 
 if __name__ == "__main__":
     main()

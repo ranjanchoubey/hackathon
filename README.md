@@ -1,4 +1,4 @@
-# 🧠 Prostate WSI Segmentation - Hackathon Solution
+#  Prostate WSI Segmentation - Hackathon Solution
 
 [![Python](https://img.shields.io/badge/Python-3.8+-blue.svg)](https://python.org)
 [![PyTorch](https://img.shields.io/badge/PyTorch-2.0+-red.svg)](https://pytorch.org)
@@ -6,28 +6,28 @@
 
 A complete deep learning solution for semantic segmentation of prostate H&E stained Whole Slide Images (WSIs) using U-Net++ with ResNet34 encoder. This project provides automated inference pipeline with comprehensive visualizations and cross-platform compatibility.
 
-## 🚀 **QUICK START**
+##  **QUICK START**
 
-### 🐧🍎 **Linux & macOS Users**
+###  **Linux & macOS Users**
 ```bash
 ./run_in_linux.sh
 ```
 
-### 🪟 **Windows Users** 
+###  **Windows Users** 
 ```powershell
 .\run_in_winodows.ps1
 ```
 
 That's it! The scripts will automatically:
-- ✅ Set up Python environment
-- ✅ Install dependencies  
-- ✅ Generate predictions for all test images
-- ✅ Create organized visualizations
-- ✅ Optionally create submission package
+-  Set up Python environment
+-  Install dependencies  
+-  Generate predictions for all test images
+-  Create organized visualizations
+-  Optionally create submission package
 
 ---
 
-## 🏆 **Model Performance**
+##  **Model Performance**
 
 | Metric | Training | Validation |
 |--------|----------|------------|
@@ -44,32 +44,32 @@ That's it! The scripts will automatically:
 
 ---
 
-## 📁 **Project Structure**
+##  **Project Structure**
 
 ```
 ├── hackathon/
-│   ├── 🚀 run_in_linux.sh          # Linux/macOS automation script
-│   ├── 🚀 run_in_winodows.ps1      # Windows PowerShell script  
-│   ├── 📦 create_submission.py     # Submission package creator
-│   ├── 📄 requirements.txt         # Python dependencies
-│   ├── 📜 LICENSE                  # MIT License
+│   ├──  run_in_linux.sh          # Linux/macOS automation script
+│   ├──  run_in_winodows.ps1      # Windows PowerShell script  
+│   ├──  create_submission.py     # Submission package creator
+│   ├──  requirements.txt         # Python dependencies
+│   ├──  LICENSE                  # MIT License
 │   │
-│   ├── 📁 datasets/               # Training and test data
+│   ├──  datasets/               # Training and test data
 │   │   ├── Training/              # Training images and masks
 │   │   ├── Validation/            # Validation images and masks  
 │   │   ├── Test/                  # Test images for inference
 │   │   └── Extra/                 # Additional data
 │   │
-│   ├── 🧠 models/                 # Trained model weights
+│   ├──  models/                 # Trained model weights
 │   │   ├── best_model.pth         # Best performing model
 │   │   └── model_info.txt         # Model metadata
 │   │
-│   ├── 📓 notebooks/              # Jupyter notebooks
+│   ├──  notebooks/              # Jupyter notebooks
 │   │   ├── 01_training_pipeline.ipynb    # Training workflow
 │   │   ├── 02_inference_demo.ipynb       # Inference demonstration
 │   │   └── experiment.ipynb              # experimental analysis
 │   │
-│   ├── 📊 outputs/                # Generated results
+│   ├──  outputs/                # Generated results
 │   │   ├── logs/                  # Training logs
 │   │   ├── predictions/           # Raw prediction masks (.png)
 │   │   └── visualizations/        # Organized visual outputs
@@ -79,11 +79,11 @@ That's it! The scripts will automatically:
 │   │       ├── statistics/        # Class distribution charts  
 │   │       └── summaries/         # Overview grids
 │   │
-│   ├── 🔧 scripts/                # Execution scripts
+│   ├──  scripts/                # Execution scripts
 │   │   ├── run_inference.py       # Main inference pipeline
 │   │   └── run_training.py        # Training script
 │   │
-│   ├── 📚 src/                    # Core source code
+│   ├──  src/                    # Core source code
 │   │   ├── config.py              # Configuration classes
 │   │   ├── model.py               # U-Net++ model definition
 │   │   ├── data_loader.py         # Data loading utilities
@@ -91,39 +91,39 @@ That's it! The scripts will automatically:
 │   │   ├── train.py               # Training pipeline
 │   │   └── utils.py               # Helper utilities
 │   │
-│   └── 📖 docs/                   # Documentation
+│   └──  docs/                   # Documentation
        └── Hackathon_Report.docx   # Technical report
 ```
 
 ---
 
-## 🎯 **Key Features**
+##  **Key Features**
 
-### **🤖 Automated Pipeline**
+### ** Automated Pipeline**
 - One-click execution for any operating system
 - Automatic environment setup and dependency management
 - Comprehensive error checking and validation
 
-### **🎨 Rich Visualizations**  
+### ** Rich Visualizations**  
 - Color-coded segmentation masks
 - Overlay predictions on original images
 - Side-by-side comparisons
 - Statistical analysis charts
 - Summary overview grids
 
-### **🌐 Cross-Platform Support**
+### ** Cross-Platform Support**
 - Linux/macOS bash script
 - Windows PowerShell script
 - Automatic Python environment management
 
-### **📦 Production Ready**
+### ** Production Ready**
 - Automated submission package creation
 - Comprehensive logging and error handling
 - Clean, modular codebase
 
 ---
 
-## 💻 **Manual Installation** (Optional)
+##  **Manual Installation** (Optional)
 
 If you prefer manual setup:
 
@@ -150,7 +150,7 @@ python create_submission.py
 
 ---
 
-## 📊 **Output Structure**
+##  **Output Structure**
 
 After running inference, you'll get:
 
@@ -169,14 +169,14 @@ outputs/
 ```
 
 ### **Color Legend**
-- 🖤 **Black (0)**: Background
-- 🟢 **Green (1)**: Stroma  
-- 🟡 **Yellow (2)**: Benign epithelium
-- 🔴 **Red (3)**: Tumor
+-  **Black (0)**: Background
+-  **Green (1)**: Stroma  
+-  **Yellow (2)**: Benign epithelium
+-  **Red (3)**: Tumor
 
 ---
 
-## 🏗️ **Technical Details**
+##  **Technical Details**
 
 ### **Model Architecture**
 - **Base**: U-Net++ (UNet Plus Plus)
@@ -200,7 +200,7 @@ outputs/
 
 ---
 
-## 📋 **Requirements**
+##  **Requirements**
 
 - **Python**: 3.8 or higher
 - **GPU**: Optional (CUDA-compatible), CPU inference supported
@@ -216,7 +216,7 @@ outputs/
 
 ---
 
-## 🚀 **Usage Examples**
+##  **Usage Examples**
 
 ### **Basic Inference**
 ```bash
@@ -239,7 +239,7 @@ python create_submission.py
 
 ---
 
-## 🤝 **Contributing**
+##  **Contributing**
 
 1. Fork the repository
 2. Create feature branch (`git checkout -b feature/amazing-feature`)
@@ -249,20 +249,20 @@ python create_submission.py
 
 ---
 
-## 📄 **License**
+##  **License**
 
 This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
 
 ---
 
-## 👥 **Authors**
+##  **Authors**
 
 - **Mona Kumari** - *Lead Developer* 
 - **Team Members** - *Contributors*
 
 ---
 
-## 🙏 **Acknowledgments**
+##  **Acknowledgments**
 
 - Hackathon organizers for providing the dataset
 - PyTorch and segmentation-models-pytorch communities
@@ -270,7 +270,7 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 
 ---
 
-## 📞 **Support**
+##  **Support**
 
 If you encounter any issues:
 
@@ -279,4 +279,4 @@ If you encounter any issues:
 3. Verify input data format and paths
 4. Create an issue with detailed error description
 
-**Ready to segment some prostates? Just run the script for your OS!** 🎉
+**Ready to segment some prostates? Just run the script for your OS!** 
