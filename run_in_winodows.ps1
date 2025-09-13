@@ -56,12 +56,61 @@ if (!(Test-Path "datasets\Test")) {
     exit 1
 }
 
-# Check if model exists
+# Check if model exists, download if not found
 if (!(Test-Path "models\best_model.pth")) {
-    Write-Host " Error: Trained model not found at models\best_model.pth" -ForegroundColor Red
-    Write-Host "Please ensure the model file exists" -ForegroundColor Yellow
-    Read-Host "Press Enter to exit"
-    exit 1
+    Write-Host " Model not found at models\best_model.pth" -ForegroundColor Yellow
+    Write-Host " Downloading pre-trained model from Google Drive..." -ForegroundColor Cyan
+    
+    # Create models directory if it doesn't exist
+    if (!(Test-Path "models")) {
+        New-Item -ItemType Directory -Path "models" | Out-Null
+    }
+    
+    # Check if gdown is installed, install if not
+    try {
+        $gdownCheck = pip show gdown 2>&1
+        if ($LASTEXITCODE -ne 0) {
+            Write-Host " Installing gdown for Google Drive downloads..." -ForegroundColor Cyan
+            pip install gdown
+            if ($LASTEXITCODE -ne 0) {
+                Write-Host " Error: Failed to install gdown" -ForegroundColor Red
+                Write-Host "Please install gdown manually: pip install gdown" -ForegroundColor Yellow
+                Read-Host "Press Enter to exit"
+                exit 1
+            }
+        }
+    } catch {
+        Write-Host " Installing gdown for Google Drive downloads..." -ForegroundColor Cyan
+        pip install gdown
+    }
+    
+    # Download the model file
+    Write-Host " Downloading model (this may take a few minutes)..." -ForegroundColor Cyan
+    gdown "https://drive.google.com/uc?id=1MwaxSbJ4H508Pp2Cmpl8TSbAWycDMlUS" -O models\best_model.pth
+    
+    if ($LASTEXITCODE -ne 0) {
+        Write-Host " Error: Failed to download model from Google Drive" -ForegroundColor Red
+        Write-Host "Please download manually from: https://drive.google.com/file/d/1MwaxSbJ4H508Pp2Cmpl8TSbAWycDMlUS/view" -ForegroundColor Yellow
+        Write-Host "Save it as: models\best_model.pth" -ForegroundColor Yellow
+        Read-Host "Press Enter to exit"
+        exit 1
+    }
+    
+    # Verify downloaded file
+    if (Test-Path "models\best_model.pth") {
+        Write-Host " Model downloaded successfully!" -ForegroundColor Green
+        # Check file size (should be reasonable for a model file)
+        $fileInfo = Get-Item "models\best_model.pth"
+        if ($fileInfo.Length -lt 1000000) {  # Less than 1MB might indicate download error
+            Write-Host " Warning: Downloaded file seems too small. Please verify the download." -ForegroundColor Yellow
+        }
+    } else {
+        Write-Host " Error: Model download failed" -ForegroundColor Red
+        Read-Host "Press Enter to exit"
+        exit 1
+    }
+} else {
+    Write-Host " Model found at models\best_model.pth" -ForegroundColor Green
 }
 
 # Create output directory

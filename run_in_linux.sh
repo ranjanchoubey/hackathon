@@ -50,11 +50,50 @@ if [ ! -d "datasets/Test" ]; then
     exit 1
 fi
 
-# Check if model exists
+# Check if model exists, download if not found
 if [ ! -f "models/best_model.pth" ]; then
-    echo " Error: Trained model not found at models/best_model.pth"
-    echo "Please ensure the model file exists"
-    exit 1
+    echo " Model not found at models/best_model.pth"
+    echo " Downloading pre-trained model from Google Drive..."
+    
+    # Create models directory if it doesn't exist
+    mkdir -p models
+    
+    # Download using gdown (install if not present)
+    if ! command -v gdown &> /dev/null; then
+        echo " Installing gdown for Google Drive downloads..."
+        pip install gdown
+        if [ $? -ne 0 ]; then
+            echo " Error: Failed to install gdown"
+            echo "Please install gdown manually: pip install gdown"
+            exit 1
+        fi
+    fi
+    
+    # Download the model file
+    echo " Downloading model (this may take a few minutes)..."
+    gdown "https://drive.google.com/uc?id=1MwaxSbJ4H508Pp2Cmpl8TSbAWycDMlUS" -O models/best_model.pth
+    
+    if [ $? -ne 0 ]; then
+        echo " Error: Failed to download model from Google Drive"
+        echo "Please download manually from: https://drive.google.com/file/d/1MwaxSbJ4H508Pp2Cmpl8TSbAWycDMlUS/view"
+        echo "Save it as: models/best_model.pth"
+        exit 1
+    fi
+    
+    # Verify downloaded file
+    if [ -f "models/best_model.pth" ]; then
+        echo " Model downloaded successfully!"
+        # Check file size (should be reasonable for a model file)
+        file_size=$(ls -la models/best_model.pth | awk '{print $5}')
+        if [ "$file_size" -lt 1000000 ]; then  # Less than 1MB might indicate download error
+            echo " Warning: Downloaded file seems too small. Please verify the download."
+        fi
+    else
+        echo " Error: Model download failed"
+        exit 1
+    fi
+else
+    echo " Model found at models/best_model.pth"
 fi
 
 # Create output directory
