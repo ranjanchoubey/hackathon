@@ -54,7 +54,7 @@ Thumbs.db
 *.pt
 
 # Large datasets (recommend excluding from git)
-datasets/
+*.png
 # Output files (keep structure but ignore generated content)
 outputs/predictions/*
 outputs/visualizations/*
