@@ -68,6 +68,5 @@ outputs/logs/*
 *.temp
 *.log
 
-# Submission files (exclude from git)
-docs/
+# Submission files (exclude from git
 models/best_model.pth
